@@ -1,115 +1,83 @@
 # JEV-CachePlan
 
-**面向批量结构化语义决策的前缀缓存感知布局优化**
+**面向批量语义决策的前缀缓存感知布局优化**
 
-*Prefix-Cache-Aware Optimization for Structured Semantic Decision Making*
+基于 JEV-9B 与 vLLM 的系统实现和性能验证。本项目把公开的前缀缓存感知行列重排方法接入批量推理流程，并在合成退款请求上测量布局对前缀缓存、耗时和结果恢复的影响。
 
-[English](README_EN.md) · [部署说明](docs/deployment.md) · [实验复现](docs/benchmark.md) · [架构与归属](docs/architecture.md)
+[English](README_EN.md) · [系统架构](docs/architecture.md) · [部署](docs/deployment.md) · [实验复现](docs/benchmark.md) · [技术来源与许可](docs/third_party.md)
 
-JEV-CachePlan 将 **字段/行布局优化**接入 **JEV-9B + vLLM**，提供完整输入序列化、真实决策概率解析、有界并发、ID 对齐、结果恢复，以及真实 Prefix Cache 与性能指标采集。它面向一批记录共享较长政策、服务或产品上下文的决策工作负载。
+| 97% 核心配置 | 核心实测缓存比例 | 98.3% 拓展配置 |
+| --- | --- | --- |
+| **8.47×** 中位耗时加速 | **89.46%** 输入 Token 命中缓存 | **12.84×** 中位耗时加速 |
 
+## JEV 与重复 Prefill
 
-![系统架构](assets/architecture.png)
+JEV-9B 对结构化记录和固定问题输出决策概率。模型卡描述了 Noul（二元判断）、Choice（选择）和 Score（评分）三种接口。本次正式性能实验只使用 **Noul**，判断客户请求是否要求货币退款。
 
-## Motivation
+批量请求反复输入相同的公司政策和服务背景。vLLM 通过匹配连续 Token 前缀复用已有 KV 缓存。如果唯一的 `record_id` 和不同的请求排在前面，后面的共享文本虽然相同，也难以形成可复用前缀。
 
-批量语义判断通常只输出一个决策 Token，却反复输入长上下文。Prefix Cache 只能复用相同的连续前缀：重复字段出现在唯一 ID 之后时，相同字段值未必能成为可复用前缀。SOLO 将合适的共享字段提前，并调整请求行序；JEV-CachePlan 执行真实计划，将结果恢复到输入记录。
+## CachePlan 方法
 
-## Key Features
+**Original** 保留原字段序和原行序。**CachePlan** 将长且重复的字段提前，把共享前缀相似的记录排在一起，再用布局计划恢复原记录顺序。两组输入字段及取值、问题、模型和推理参数一致。模型权重与决策 LoRA 都来自固定版本。
 
-- **真实 JEV Backend/Adapter**：Noul、Choice、Score；bare-v1 Prompt、决策 LoRA、候选单 Token logprobs 与固定校准。
-- **计划与执行分离**：Original / Full SOLO 对照，完整字段保真，合法置换检查。
-- **结果恢复**：按计划位置收集异步返回，再恢复概率矩阵、标签、记录 ID；失败响应不转成默认答案。
-- **可核验测量**：逐响应 usage、真实 cached_tokens、Prometheus `/metrics`、延迟分布和 GPU 资源采样。
-- **可重跑的作者基准**：128×10、seed=42，80% / 97% / 98.3% 三组共享程度，14 轮原始实测指标随仓库提供。
-- **CPU 优先**：离线示例与 FakeBackend 测试不加载 GPU、不下载模型；GPU 服务单独安装、只监听本机、使用原上游所有权控制器停服。
+![Original 和 CachePlan 的前缀组织对照示意图](assets/layout.svg)
 
-## Installation
+*方法示意。完整的实测行列重排与字段统计见 [布局机制](docs/method.md)。*
 
-CPU 客户端验证环境为 Python **3.12.3**；支持范围见 `pyproject.toml`。Linux GPU 部署单独说明，不修改系统 CUDA/驱动。
+## 系统架构
+
+![JEV-CachePlan 处理流程，从结构化记录、LayoutPlan、vLLM 直到概率恢复和指标审计](assets/architecture.svg)
+
+*系统示意，对应最终汇报第 6、8 页。项目实现了单卡服务部署、完整记录序列化和有界并发、候选单 Token 概率解析、按原位置与 ID 恢复，以及缓存与性能指标的交叉核验。图中不填入未经测量的概率。*
+
+在一条实测合成记录中，请求节选为 “The item arrived broken. Please return the money I paid to my card.”。固定问题是 `Does the customer_request ask for a monetary refund?`。Original 返回 **True**，`P(True) = 0.998853`；CachePlan 同样返回 **True**，`P(True) = 0.999429`。模型实际接收完整记录，包括共享政策与服务背景。两种布局的概率对照和来源见 [实验复现](docs/benchmark.md#正确性与恢复)。
+
+## 合成退款意图基准
+
+每档 **128 条记录 × 10 个字段**，64 条退款、64 条换货，固定 `seed=42`。字段为 `record_id`、`customer_request`、`company_policy`、`service_context`、`profile_0` 至 `profile_5`。金额退款标签仅用于评估。
+
+使用单张 NVIDIA L40、BF16、vLLM 0.31.0、16,384 Token 上下文、4 个在途请求，开启自动前缀缓存（APC）。每次扫描使用独立 `cache_salt`，方法执行顺序交错。三档共 **14 次完整扫描、1,792 次正式决策**。80%、97%、98.3% 表示可复用字段值 Token 占比，实际缓存命中通过 vLLM 响应测量。
+
+| 可复用字段值 Token 占比 | 最大完整 Prompt | 每方法扫描 | Original 中位耗时 | CachePlan 中位耗时 | 中位耗时之比 |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| 80% | 1,401 | 2 | 71.170 s | 34.510 s | 2.06× |
+| 97%（核心） | 8,881 | 3 | 415.072 s | 48.999 s | **8.47×** |
+| 98.3%（拓展） | 15,611 | 2 | 740.008 s | 57.648 s | **12.84×** |
+
+## 实测结果与正确性
+
+![97% 核心配置下 Original 和 CachePlan 的三轮平均耗时与吞吐](assets/core_timing_throughput.png)
+
+- **核心耗时与吞吐。** 三轮平均耗时从 **415.265 s** 降至 **48.990 s**，平均总耗时降低约 **88.2%**；平均吞吐从约 **0.308** 升至 **2.613 条/秒**。上表的 **8.47×** 使用两组中位耗时。
+- **实际缓存。** 两种布局每扫描均输入 **1,136,750 Token**。Original 命中 0，CachePlan 命中 **1,016,928 Token（89.46%）**。逐响应 `usage` 和服务端 `/metrics` 差值逐轮一致。 [缓存图](assets/cache.png)
+- **逐请求延迟。** 核心配置每方法 384 条，平均客户端延迟从 **12.848 s** 降至 **1.519 s**。 [延迟分布](assets/latency.png) · [三轮复测](assets/repeat_timing.png)
+- **结果恢复。** 14 次扫描均通过 ID、概率及标签恢复校验。七组配对的恢复后预测完全一致，合成标签准确率均为 **100%**。概率可随字段顺序变化。性能和准确率结论限于该合成负载。
+
+[三档结果图](assets/speedup.png) · [14 次扫描的原始公开指标](benchmarks/results/run_metrics.csv) · [配置、布局计划与审计](docs/benchmark.md)
+
+## Quick Start
+
+CPU 示例只做布局计算与恢复检查。安装脚本建立项目专属客户端环境。
 
 ```bash
-# 在仓库根目录；仅创建项目专属 CPU 环境
 bash scripts/install_cpu.sh
 source .venv-cpu/bin/activate
-```
-
-脚本安装 `requirements.txt`：NumPy/Numba/Pandas/Requests、测试与数据生成工具，以及固定 commit 的 SOLO Git 依赖。**不安装 PyTorch/vLLM，不下载 JEV 权重**。已有环境不会被安装脚本覆盖。
-
-## Quick Start — CPU，无需模型
-
-```bash
 python scripts/cpu_example.py
+python scripts/decide.py --method cacheplan --plan-only
 python scripts/decide.py --compare --plan-only
+python scripts/benchmark.py analyze
 PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 python -m pytest -q
 ```
 
-第一条检查同一份数据的字段/行布局、内容保真和原位置恢复，明确输出 `inference_executed: false`；第二条只展示实际 Original/SOLO 计划。测试 HTTP 使用显式 FakeBackend，禁止真实网络调用。
-
-## Quick Start — 真实 JEV 决策
-
-需要用户预先取得固定版本模型、单独 GPU 环境与足够安全显存。模型与环境均不在仓库中；完整步骤见[部署说明](docs/deployment.md)。
+已有本地 JEV-9B 模型并按 [部署说明](docs/deployment.md) 启动服务后，可运行真实 Noul 示例。
 
 ```bash
-# 显式获取固定版本作者部署控制器/生成器
-python scripts/fetch_solo.py
-# 已有合法本地模型：此变量可指向任意路径，无须再次下载
-export JEV_MODEL_DIR=/path/to/JEV-9B
-export JEV_GPU=0
-export JEV_PORT=18765
-export JEV_GPU_PYTHON="$PWD/.venv-gpu/bin/python"
-python scripts/verify_model.py
-bash scripts/start.sh
-
-# 单条、批量优化、两组对照；真实输出写入唯一 runs/example_* 目录
-python scripts/decide.py --limit 1
-python scripts/decide.py --method solo
+python scripts/decide.py --method cacheplan
 python scripts/decide.py --compare
-
-# 只停止当前固定 checkout 的自有服务
-bash scripts/stop.sh
 ```
 
-环境变量可覆盖模型路径、GPU、端口和配置路径（`JEV_CONFIG`）。示例 `JEV_GPU=0` 不表示该 GPU 空闲或保留给项目；启动前检查预算与余量，不能停止其他人的任务。使用已有模型时不执行任何下载命令。
+旧参数 `--method solo` 仍可用。已有 JSON 的 `method` 值和结果文件名保持兼容，CLI 的 `display_name` 显示 Original 或 CachePlan。
 
-## Benchmark — 本机真实测量
+## 技术来源
 
-| 可复用字段值 Token 占比 | 每方法重复 | 最大完整 Prompt | Original 中位耗时 (s) | SOLO 中位耗时 (s) | 加速比 |
-|---|---:|---:|---:|---:|---:|
-| 80% | 2 | 1,401 | 71.170 | 34.510 | **2.06×** |
-| 97%（核心） | 3 | 8,881 | 415.072 | 48.999 | **8.47×** |
-| 98.3%（拓展） | 2 | 15,611 | 740.008 | 57.648 | **12.84×** |
-
-共享比例是 NDV 小于行数的字段值 Token 占总字段值 Token 的比例，**不是 vLLM 实际缓存命中率**。核心 SOLO 实际缓存比例：`1,016,928 / 1,136,750 = 89.45924785572905%`；Original 为 0。14 次扫描、1,792 次正式决策，均通过 ID/概率/标签恢复检查；三组合成退款/换货任务 Accuracy 均 100%，不能外推真实业务能力。
-
-![真实核心吞吐与耗时](assets/speedup.png)
-![共享程度拓展](assets/shared_context.png)
-
-测量：单张 **NVIDIA L40**；BF16、JEV 固定 revision、vLLM 0.31.0、Torch 2.13.0+cu130、Transformers 5.17.0；16K 上下文、4 并发、batch_tokens=2048、APC、hybrid align、eager。原测量 GPU memory utilization=0.4661，每轮独立 cache_salt，预热另盐，实际 usage 与 metrics 一致。报告速度比为 **Original/SOLO 中位耗时之比**。
-
-全部 14 轮精确值见 [run_metrics.csv](benchmarks/results/run_metrics.csv)，含规划/恢复耗时、延迟、吞吐、真实缓存、质量和输入来源哈希；实际配置、完整行列计划及诊断也已附。
-
-
-
-## Repository
-
-```text
-src/          自有 Adapter、计划执行、校验、真实指标及恢复
-scripts/      CPU示例、决策、固定上游获取、服务与实验入口
-configs/      可移植示例配置、固定模型文件校验清单
-tests/        禁止真实网络的CPU测试和小型决策元数据fixture
-benchmarks/   作者数据参数/哈希、14轮精确实测、计划与审计摘要
-assets/       原测量生成的架构/布局/缓存/性能图
-requirements/ CPU/GPU分离依赖及原测试环境冻结快照
-docs/         架构、部署、实验与第三方许可说明
-```
-
-
-## Acknowledgements / References
-
-- [SOLO 固定源码](https://github.com/0814wdwd/solo_jev/tree/c5bed0511f3c90a83774f1a01e37da6b0b60fa22)，MIT；基础布局算法、Backend 协议与 shared 生成器来自作者。
-- Yingze Li et al., [*Prefix-Cache-Aware Data Reordering for LLM-Augmented Database Analytics*](https://proceedings.mlr.press/v306/li26gn.html), ICML 2026。本文研究与作者 JEV 演示基准应分开理解；本项目没有复现论文全部 Qwen/LOTUS 主表。
-- [AutoTrust JEV-9B](https://huggingface.co/autotrust/JEV-9B/tree/b63f651ce8ed64481d3f5e73ecdb05f740042f01)，固定模型及决策 LoRA，模型卡声明 Apache-2.0。
-- [vLLM](https://github.com/vllm-project/vllm)，Apache-2.0；GPU 推理与 Prefix Cache。
-
-自有代码采用 [MIT](LICENSE)。第三方组件遵循原许可；fixture 的 JEV 决策元数据按 Apache-2.0 单列，详见[第三方声明](docs/third_party.md)。不以本项目许可证覆盖第三方版权。
+JEV-CachePlan 的贡献是将固定模型、决策 LoRA 和公开的前缀缓存感知布局方法集成到可测量的批量决策系统，并提供公开确定性合成负载的运行入口、恢复校验和本机实测证据。算法、模型及推理服务的出处和许可见 [第三方依赖与技术来源](docs/third_party.md)。与 21 页课程汇报的对应关系见 [展示对齐记录](docs/PRESENTATION_ALIGNMENT.md)。

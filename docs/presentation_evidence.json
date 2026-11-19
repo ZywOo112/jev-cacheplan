@@ -1,0 +1,116 @@
+{
+  "scope": "Read-only cross-check against supplied slides and existing run records",
+  "reference_package_sha256": "f77e976cd75b8c018b7d82b63ed09cddf436fed84b7e05e96ed55c51ec13fba6",
+  "case_statistics": {
+    "shared_800": {
+      "original_median_seconds": 71.16956078750081,
+      "cacheplan_median_seconds": 34.50952165538911,
+      "median_speedup": 2.062316641134513,
+      "original_mean_seconds": 71.16956078750081,
+      "cacheplan_mean_seconds": 34.50952165538911,
+      "original_mean_records_per_second": 1.7985545626485204,
+      "cacheplan_mean_records_per_second": 3.7091215094179746
+    },
+    "shared_970": {
+      "original_median_seconds": 415.0719844880514,
+      "cacheplan_median_seconds": 48.99948832881637,
+      "median_speedup": 8.470945282176539,
+      "original_mean_seconds": 415.26510919902165,
+      "cacheplan_mean_seconds": 48.98984407788763,
+      "original_mean_records_per_second": 0.3082393251064716,
+      "cacheplan_mean_records_per_second": 2.612787045155167
+    },
+    "shared_983": {
+      "original_median_seconds": 740.0075889801374,
+      "cacheplan_median_seconds": 57.64764999237377,
+      "median_speedup": 12.836734699125346,
+      "original_mean_seconds": 740.0075889801374,
+      "cacheplan_mean_seconds": 57.64764999237377,
+      "original_mean_records_per_second": 0.17297231947331926,
+      "cacheplan_mean_records_per_second": 2.2204118555705614
+    }
+  },
+  "actual_cache_fraction": 0.8945924785572905,
+  "actual_cached_tokens": 1016928,
+  "actual_prompt_tokens": 1136750,
+  "formal_scans": 14,
+  "formal_decisions": 1792,
+  "paired_prediction_checks": [
+    {
+      "case": "shared_800",
+      "repeat": 1,
+      "records": 128,
+      "prediction_agreement": 1.0
+    },
+    {
+      "case": "shared_800",
+      "repeat": 2,
+      "records": 128,
+      "prediction_agreement": 1.0
+    },
+    {
+      "case": "shared_970",
+      "repeat": 1,
+      "records": 128,
+      "prediction_agreement": 1.0
+    },
+    {
+      "case": "shared_970",
+      "repeat": 2,
+      "records": 128,
+      "prediction_agreement": 1.0
+    },
+    {
+      "case": "shared_970",
+      "repeat": 3,
+      "records": 128,
+      "prediction_agreement": 1.0
+    },
+    {
+      "case": "shared_983",
+      "repeat": 1,
+      "records": 128,
+      "prediction_agreement": 1.0
+    },
+    {
+      "case": "shared_983",
+      "repeat": 2,
+      "records": 128,
+      "prediction_agreement": 1.0
+    }
+  ],
+  "real_decision_examples": [
+    {
+      "request_excerpt": "The item arrived broken. Please return the money I paid to my card.",
+      "original_position": 2,
+      "record_id": "case-0f02bad0e7067ef466aa9385dd59ba71",
+      "original_run_id": "shared_970_r1_original_20261116T150452Z_cfbafdb3",
+      "cacheplan_run_id": "shared_970_r1_solo_20261116T151202Z_9b8c9c09",
+      "original_p_true": 0.9988527588851238,
+      "cacheplan_p_true": 0.999428639697705,
+      "original_predicted": true,
+      "cacheplan_predicted": true,
+      "source_prediction_file_sha256": {
+        "original": "a71ad12b8ed86b6e6606e8f4e7ef4a2aed74a68540f981b025c1c950f5fbee0c",
+        "cacheplan": "d8544d3fd821cfb20ce4339d454138394ad4cb7ee7e9484582265429a0a16ff1"
+      }
+    },
+    {
+      "request_excerpt": "Please send a replacement of the same model.",
+      "original_position": 0,
+      "record_id": "case-b758588dab73295b344a54b842c18a62",
+      "original_run_id": "shared_970_r1_original_20261116T150452Z_cfbafdb3",
+      "cacheplan_run_id": "shared_970_r1_solo_20261116T151202Z_9b8c9c09",
+      "original_p_true": 0.0008518456240358548,
+      "cacheplan_p_true": 0.0002806643536720561,
+      "original_predicted": false,
+      "cacheplan_predicted": false,
+      "source_prediction_file_sha256": {
+        "original": "a71ad12b8ed86b6e6606e8f4e7ef4a2aed74a68540f981b025c1c950f5fbee0c",
+        "cacheplan": "d8544d3fd821cfb20ce4339d454138394ad4cb7ee7e9484582265429a0a16ff1"
+      }
+    }
+  ],
+  "all_existing_benchmark_files_preserved": true,
+  "new_gpu_measurements": false
+}

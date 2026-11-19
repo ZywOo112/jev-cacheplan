@@ -1,0 +1,262 @@
+{
+  "reference_package_sha256": "f77e976cd75b8c018b7d82b63ed09cddf436fed84b7e05e96ed55c51ec13fba6",
+  "beamer_tex_sha256": "edc151ca7435533c508b93fa3bc3bfd93be2aaf0ff7d389249355b0533e44d30",
+  "beamer_pdf_sha256": "d2e921b61c7f77a1a1f41058bf0850511da6119ec40033e6fe4bc6693970739d",
+  "figures": [
+    {
+      "file": "assets/cache.png",
+      "source": "figures/charts/cache_tokens.pdf",
+      "source_sha256": "6bc6dd8f8abebeb0d26d11e72044843ab8885d8f3aee226d3ef383ffb2fab058",
+      "sha256": "f2734ab81b8333377716bf3e29938303c21bc9a6f2d44df595de3408cee3d677",
+      "presentation_pages": [
+        15
+      ],
+      "kind": "measured_result",
+      "transformation": "Render existing supplied vector PDF at scale 2.5; values unchanged"
+    },
+    {
+      "file": "assets/core_timing_throughput.png",
+      "source": "figures/charts/core_timing_throughput.pdf",
+      "source_sha256": "0bc305b397723f755143f0798b0d0abe79a486d3efd321c3b2b0b557727cbecc",
+      "sha256": "bcdce0aa87728dff552399da9e44a6b145edd0ae0249c7ac0b35f398b955a7c0",
+      "presentation_pages": [
+        14
+      ],
+      "kind": "measured_result",
+      "transformation": "Render existing supplied vector PDF at scale 2.5; values unchanged"
+    },
+    {
+      "file": "assets/field_structure.png",
+      "source": "figures/charts/field_structure.pdf",
+      "source_sha256": "f64c2aa79d77f5b5e6dc0e3f37d8f0e10c62fceece12c85b981ee88e7c69edbd",
+      "sha256": "309de7b2b227d40b7f86a33d3504d3398a3a2c2257ab1f7b7443b53692b2ddb8",
+      "presentation_pages": [
+        7
+      ],
+      "kind": "measured_result",
+      "transformation": "Render existing supplied vector PDF at scale 2.5; values unchanged"
+    },
+    {
+      "file": "assets/latency.png",
+      "source": "figures/charts/latency_violin.pdf",
+      "source_sha256": "5529061fc3a4ec73c8bd38e0eb347b2c5a6a45ef2dc721854e15dc40db1624dd",
+      "sha256": "f76135faa5ef6a10ab204a2dcb8e1a1b6cc627e2eb66c9033b47b2168a78ab6d",
+      "presentation_pages": [
+        16
+      ],
+      "kind": "measured_result",
+      "transformation": "Render existing supplied vector PDF at scale 2.5; values unchanged"
+    },
+    {
+      "file": "assets/experiment_layout.png",
+      "source": "figures/charts/layout_heatmap.pdf",
+      "source_sha256": "53585fa51aa5580be539f2e826e90e96b27f269369cf12f0e167ceba7e94da74",
+      "sha256": "0ef8b7de13675c716e6a638f9fea2f616728df354c471e68aa8acb9af9fd0271",
+      "presentation_pages": [
+        13
+      ],
+      "kind": "measured_result",
+      "transformation": "Render existing supplied vector PDF at scale 2.5; values unchanged"
+    },
+    {
+      "file": "assets/repeat_timing.png",
+      "source": "figures/charts/repeat_timing.pdf",
+      "source_sha256": "f341215d4096abd45ca36ac2e946096bf00e233398e6059e1461f86430992cdd",
+      "sha256": "526367e39e6beff78cf6c73d6173bfe427ce80525034df481dd4ee155b1c5464",
+      "presentation_pages": [
+        17
+      ],
+      "kind": "measured_result",
+      "transformation": "Redraw exact saved run CSV with Original/CachePlan legend; no new measurements",
+      "drawing_source": "scripts/render_public_results.py",
+      "measured_data": "benchmarks/results/run_metrics.csv",
+      "measured_data_sha256": "9a68cfdebc1cdd6173f60c22e038971a1e1998569c718726bdcec88696d0d540"
+    },
+    {
+      "file": "assets/shared_context.png",
+      "source": "figures/charts/shared_configs.pdf",
+      "source_sha256": "50fa4f48ba8982ba8d914fc1621e41f1ac01e1f221b0b7a60360672406b80f1a",
+      "sha256": "433fad2f993d9fdc965f019a7991dab808c10bd4d1b61ebfd935d9c01543327e",
+      "presentation_pages": [
+        11
+      ],
+      "kind": "measured_result",
+      "transformation": "Render existing supplied vector PDF at scale 2.5; values unchanged"
+    },
+    {
+      "file": "assets/speedup.png",
+      "source": "figures/charts/sharing_sweep.pdf",
+      "source_sha256": "45fcb8ddb96dc672b974053b2a7aeb30ded4fdb80822ee188b5756b3b1463cee",
+      "sha256": "9d2fc437df35fab30e4afe33eff7fbbefb21284cfb9f2dbefb6a6accedf7042f",
+      "presentation_pages": [
+        18
+      ],
+      "kind": "measured_result",
+      "transformation": "Render existing supplied vector PDF at scale 2.5; values unchanged"
+    },
+    {
+      "file": "assets/jev_intro.png",
+      "source": "figures/diagrams/jev_intro_body.png",
+      "sha256": "88f36cc12e490e617c0bcb54e819519bef976f7ba02b8020f45223488f9bb592",
+      "source_sha256": "88f36cc12e490e617c0bcb54e819519bef976f7ba02b8020f45223488f9bb592",
+      "presentation_pages": [
+        2
+      ],
+      "kind": "conceptual_illustration",
+      "transformation": "Copy supplied diagram unchanged; illustrative probabilities are not measurements"
+    },
+    {
+      "file": "assets/jev_decision.png",
+      "source": "figures/diagrams/jev_decision_body.png",
+      "sha256": "7906ecf1647312026576014a380e71290372d859977deb0c5d1431d9357a95e7",
+      "source_sha256": "7906ecf1647312026576014a380e71290372d859977deb0c5d1431d9357a95e7",
+      "presentation_pages": [
+        3
+      ],
+      "kind": "conceptual_illustration",
+      "transformation": "Copy supplied diagram unchanged; illustrative probabilities are not measurements"
+    },
+    {
+      "file": "assets/redundant_prefill.png",
+      "source": "figures/diagrams/redundant_prefill_body.png",
+      "sha256": "92c44125db20c07207371088b3cd7d89b3a04ebfbf721e0886f56775802487ba",
+      "source_sha256": "92c44125db20c07207371088b3cd7d89b3a04ebfbf721e0886f56775802487ba",
+      "presentation_pages": [
+        4
+      ],
+      "kind": "conceptual_illustration",
+      "transformation": "Copy supplied diagram unchanged; illustrative probabilities are not measurements"
+    },
+    {
+      "file": "assets/experiment_workflow.png",
+      "source": "figures/diagrams/experiment_workflow_body.png",
+      "sha256": "8bc18a3fe5f9fcab4200e159bd0e4adcef27a6b6001196f690d102bb86531e62",
+      "source_sha256": "8bc18a3fe5f9fcab4200e159bd0e4adcef27a6b6001196f690d102bb86531e62",
+      "presentation_pages": [
+        12
+      ],
+      "kind": "conceptual_illustration",
+      "transformation": "Copy supplied diagram unchanged; illustrative probabilities are not measurements"
+    },
+    {
+      "file": "assets/architecture.svg",
+      "source": "figures/diagrams/system_architecture_body.png",
+      "sha256": "cf1a4ad9465f148399aea80dbe2a828d1980098ea95c130cc96f9eb595635251",
+      "presentation_pages": [
+        6,
+        8
+      ],
+      "kind": "conceptual_illustration",
+      "transformation": "Responsive vector layout of the same slide workflow, aligned to actual code; no example probabilities"
+    },
+    {
+      "file": "assets/layout.svg",
+      "source": "figures/diagrams/layout_idea_body.png",
+      "sha256": "94f25caf08252f2a30c45360d4eeaa4d1574c32a0b84c32b881c6a922cd289b1",
+      "presentation_pages": [
+        5
+      ],
+      "kind": "conceptual_illustration",
+      "transformation": "Responsive vector layout of the same slide workflow, aligned to actual code; no example probabilities"
+    },
+    {
+      "file": "assets/repeat_timing.svg",
+      "sha256": "0ef7decb4b71250958b8939a5aaf3a5e18e8f0d7a1055d4bbfcbd353e6bc620d",
+      "presentation_pages": [
+        17
+      ],
+      "kind": "measured_result",
+      "drawing_source": "scripts/render_public_results.py",
+      "measured_data": "benchmarks/results/run_metrics.csv",
+      "measured_data_sha256": "9a68cfdebc1cdd6173f60c22e038971a1e1998569c718726bdcec88696d0d540"
+    },
+    {
+      "file": "assets/quality.png",
+      "sha256": "2096ae9bdc703b6e8cb8e0a479386fe2774bfb2706b8deb6ab435bdfc3069c2d",
+      "presentation_pages": [
+        19
+      ],
+      "kind": "measured_result",
+      "drawing_source": "scripts/render_public_results.py",
+      "measured_data": "benchmarks/results/run_metrics.csv",
+      "measured_data_sha256": "9a68cfdebc1cdd6173f60c22e038971a1e1998569c718726bdcec88696d0d540"
+    },
+    {
+      "file": "assets/architecture.png",
+      "sha256": "4a7c47ce4fff40fb93cb849559449643c505e49c8c11f8904648ebea813e0bfc",
+      "source": "figures/diagrams/system_architecture_body.png",
+      "presentation_pages": [
+        6
+      ],
+      "kind": "conceptual_illustration",
+      "transformation": "Original provided PNG compatibility asset; homepage uses responsive SVG"
+    },
+    {
+      "file": "assets/layout.png",
+      "sha256": "ceecf17e0e245733ac1dc95e14ed6bbe58968e144ca7a41d3bdabd1754cd0d71",
+      "source": "figures/diagrams/layout_idea_body.png",
+      "presentation_pages": [
+        5
+      ],
+      "kind": "conceptual_illustration",
+      "transformation": "Original provided PNG compatibility asset; homepage uses responsive SVG"
+    },
+    {
+      "file": "assets/presentation_charts/layout_heatmap.pdf",
+      "sha256": "53585fa51aa5580be539f2e826e90e96b27f269369cf12f0e167ceba7e94da74",
+      "kind": "original_supplied_vector_chart",
+      "source": "figures/charts/layout_heatmap.pdf",
+      "transformation": "Byte-identical supplied PDF"
+    },
+    {
+      "file": "assets/presentation_charts/sharing_sweep.pdf",
+      "sha256": "45fcb8ddb96dc672b974053b2a7aeb30ded4fdb80822ee188b5756b3b1463cee",
+      "kind": "original_supplied_vector_chart",
+      "source": "figures/charts/sharing_sweep.pdf",
+      "transformation": "Byte-identical supplied PDF"
+    },
+    {
+      "file": "assets/presentation_charts/shared_configs.pdf",
+      "sha256": "50fa4f48ba8982ba8d914fc1621e41f1ac01e1f221b0b7a60360672406b80f1a",
+      "kind": "original_supplied_vector_chart",
+      "source": "figures/charts/shared_configs.pdf",
+      "transformation": "Byte-identical supplied PDF"
+    },
+    {
+      "file": "assets/presentation_charts/repeat_timing.pdf",
+      "sha256": "f341215d4096abd45ca36ac2e946096bf00e233398e6059e1461f86430992cdd",
+      "kind": "original_supplied_vector_chart",
+      "source": "figures/charts/repeat_timing.pdf",
+      "transformation": "Byte-identical supplied PDF"
+    },
+    {
+      "file": "assets/presentation_charts/cache_tokens.pdf",
+      "sha256": "6bc6dd8f8abebeb0d26d11e72044843ab8885d8f3aee226d3ef383ffb2fab058",
+      "kind": "original_supplied_vector_chart",
+      "source": "figures/charts/cache_tokens.pdf",
+      "transformation": "Byte-identical supplied PDF"
+    },
+    {
+      "file": "assets/presentation_charts/core_timing_throughput.pdf",
+      "sha256": "0bc305b397723f755143f0798b0d0abe79a486d3efd321c3b2b0b557727cbecc",
+      "kind": "original_supplied_vector_chart",
+      "source": "figures/charts/core_timing_throughput.pdf",
+      "transformation": "Byte-identical supplied PDF"
+    },
+    {
+      "file": "assets/presentation_charts/field_structure.pdf",
+      "sha256": "f64c2aa79d77f5b5e6dc0e3f37d8f0e10c62fceece12c85b981ee88e7c69edbd",
+      "kind": "original_supplied_vector_chart",
+      "source": "figures/charts/field_structure.pdf",
+      "transformation": "Byte-identical supplied PDF"
+    },
+    {
+      "file": "assets/presentation_charts/latency_violin.pdf",
+      "sha256": "5529061fc3a4ec73c8bd38e0eb347b2c5a6a45ef2dc721854e15dc40db1624dd",
+      "kind": "original_supplied_vector_chart",
+      "source": "figures/charts/latency_violin.pdf",
+      "transformation": "Byte-identical supplied PDF"
+    }
+  ],
+  "note": "repeat_timing.png is subsequently relabelled from unchanged run CSV; see drawing source and alignment report."
+}

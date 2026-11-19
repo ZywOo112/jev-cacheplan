@@ -66,3 +66,23 @@ def test_cpu_readme_commands_from_unrelated_working_directory(script,args,tmp_pa
                           env=os.environ.copy(),capture_output=True,text=True,timeout=90)
     assert result.returncode==0,result.stderr
     assert result.stdout.strip()
+
+def test_cacheplan_cli_alias_preserves_the_legacy_layout(tmp_path):
+    def plan(*args):
+        output = subprocess.check_output(
+            [sys.executable, '-B', str(ROOT/'scripts/decide.py'), '--plan-only', *args],
+            cwd=tmp_path, text=True, timeout=90)
+        return [json.loads(line) for line in output.splitlines()]
+
+    explicit = plan('--method', 'cacheplan')
+    assert explicit == plan('--method', 'solo') == plan()
+    assert explicit[0]['method'] == 'solo'
+    assert explicit[0]['display_name'] == 'CachePlan'
+    assert [item['display_name'] for item in plan('--compare')] == ['Original', 'CachePlan']
+
+def test_cpu_example_has_public_names_and_no_inference(tmp_path):
+    result=subprocess.check_output([sys.executable,'-B',str(ROOT/'scripts/cpu_example.py')],cwd=tmp_path,text=True,timeout=90)
+    payload=json.loads(result)
+    assert payload['offline_checks']=='passed' and payload['inference_executed'] is False
+    assert list(payload['layouts'])==['Original','CachePlan']
+    assert all(sorted(p['row_order'])==list(range(4)) for p in payload['layouts'].values())

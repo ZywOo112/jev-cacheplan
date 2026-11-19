@@ -1,4 +1,4 @@
-# 部署与环境
+# JEV-CachePlan 部署与环境
 
 ## 1. 两个环境，两个职责
 
@@ -61,7 +61,7 @@ export JEV_GPU=0
 export JEV_PORT=18765
 bash scripts/start.sh
 python scripts/service.py status
-python scripts/decide.py --method solo
+python scripts/decide.py --method cacheplan
 bash scripts/stop.sh
 ```
 
@@ -82,4 +82,4 @@ python scripts/decide.py --kind choice --options '["monetary refund","replacemen
 python scripts/decide.py --kind score --question 'How strongly is a monetary refund requested, from 0 to 5?'
 ```
 
-示例仅解释接口，不填预期输出或伪称新的实测。`--plan-only`不会发请求。普通功能批次使用M1的2并发外部计划Adapter；正式shared基准保留M3单独的4并发执行器。
+资料中的正式性能对照只跑了 Noul 退款意图。Choice、Score 命令演示通用接口。`--plan-only` 只计算布局。普通功能批次使用 2 个在途请求，正式 Shared Context 基准使用 4 个。兼容参数 `--method solo` 等同于 `--method cacheplan`；两种拼写都保留原有工件标识。
