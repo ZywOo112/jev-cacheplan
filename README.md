@@ -6,10 +6,10 @@
 
 [English](README_EN.md) · [部署说明](docs/deployment.md) · [实验复现](docs/benchmark.md) · [架构与归属](docs/architecture.md)
 
-JEV-CachePlan 将 **SOLO 的字段/行布局优化**接入 **JEV-9B + vLLM**，提供完整输入序列化、真实决策概率解析、有界并发、ID 对齐、结果恢复，以及真实 Prefix Cache 与性能指标采集。它面向一批记录共享较长政策、服务或产品上下文的决策工作负载。
+JEV-CachePlan 将 **字段/行布局优化**接入 **JEV-9B + vLLM**，提供完整输入序列化、真实决策概率解析、有界并发、ID 对齐、结果恢复，以及真实 Prefix Cache 与性能指标采集。它面向一批记录共享较长政策、服务或产品上下文的决策工作负载。
 
 
-![SOLO–JEV 系统架构](assets/architecture.png)
+![系统架构](assets/architecture.png)
 
 ## Motivation
 
@@ -51,7 +51,7 @@ PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 python -m pytest -q
 需要用户预先取得固定版本模型、单独 GPU 环境与足够安全显存。模型与环境均不在仓库中；完整步骤见[部署说明](docs/deployment.md)。
 
 ```bash
-# 显式获取固定版本作者部署控制器/生成器（不含模型）
+# 显式获取固定版本作者部署控制器/生成器
 python scripts/fetch_solo.py
 # 已有合法本地模型：此变量可指向任意路径，无须再次下载
 export JEV_MODEL_DIR=/path/to/JEV-9B
@@ -85,30 +85,11 @@ bash scripts/stop.sh
 ![真实核心吞吐与耗时](assets/speedup.png)
 ![共享程度拓展](assets/shared_context.png)
 
-测量：单张 **NVIDIA L40（共享服务器）**；BF16、JEV 固定 revision、vLLM 0.31.0、Torch 2.13.0+cu130、Transformers 5.17.0；16K 上下文、4 并发、batch_tokens=2048、APC、hybrid align、eager。原测量 GPU memory utilization=0.4661，每轮独立 cache_salt，预热另盐，实际 usage 与 metrics 一致。报告速度比为 **Original/SOLO 中位耗时之比**。
+测量：单张 **NVIDIA L40**；BF16、JEV 固定 revision、vLLM 0.31.0、Torch 2.13.0+cu130、Transformers 5.17.0；16K 上下文、4 并发、batch_tokens=2048、APC、hybrid align、eager。原测量 GPU memory utilization=0.4661，每轮独立 cache_salt，预热另盐，实际 usage 与 metrics 一致。报告速度比为 **Original/SOLO 中位耗时之比**。
 
-全部 14 轮精确值见 [run_metrics.csv](benchmarks/results/run_metrics.csv)，含规划/恢复耗时、延迟、吞吐、真实缓存、质量和输入来源哈希；实际配置、完整行列计划及诊断也已附。作者 RTX4090 的公开数值没有混入本机实测 CSV。
+全部 14 轮精确值见 [run_metrics.csv](benchmarks/results/run_metrics.csv)，含规划/恢复耗时、延迟、吞吐、真实缓存、质量和输入来源哈希；实际配置、完整行列计划及诊断也已附。
 
-### 适用边界
 
-这是作者 ID-first、长中性填充的合成基准，原始字段和顺序保持作者设置；不是刻意打乱现实数据来构造加速。只有一个主要任务/种子，核心 3 次、拓展 2 次，且共享 GPU 存在资源干扰。原运行有一次采样最低空闲 3924 MiB，低于当时 4096 MiB 启动余量；完整保留该观察，新部署示例提高启动余量，**不是重新测量或改写旧结果**。
-
-历史 ContractNLI 全文实验中 Original/SOLO 时间比约 **0.3591×**，SOLO 反而更慢；原始合同布局已有较好前缀局部性。见[边界摘要](benchmarks/results/contractnli_boundary.json)。本项目不保证所有任务加速，也没有证明所有收益仅来自某个独立因果因素。
-
-## Reproducibility
-
-```bash
-# 不需 GPU，读取仓库中已公开的 14 轮指标
-python scripts/benchmark.py analyze
-
-# 已配置本地 tokenizer/权重和固定作者源码；生成数据，不推理
-python scripts/benchmark.py prepare
-
-# 已按部署说明启动自有服务；唯一新 session，不覆盖历史结果
-python scripts/benchmark.py run --stop-service
-```
-
-`prepare` 使用固定作者 `demo.shared`，检查规范数据 SHA256 与已有三组记录一致，保存完整 Prompt 长度，超长即报错、不截断。`run` 执行 Original/SOLO 交替顺序、隔离缓存、14 次扫描，并在 `finally` 中按选项停止自有服务。详细协议、计时口径和公开版差异见[实验说明](docs/benchmark.md)。
 
 ## Repository
 
@@ -123,7 +104,6 @@ requirements/ CPU/GPU分离依赖及原测试环境冻结快照
 docs/         架构、部署、实验与第三方许可说明
 ```
 
-模型、环境、运行日志、PID、Token、缓存和第三方 Git checkout 均不纳入 Git。发行版只提供小型合成示例、可重新生成的基准方法及紧凑测量结果，不分发 ContractNLI 等第三方数据。
 
 ## Acknowledgements / References
 
