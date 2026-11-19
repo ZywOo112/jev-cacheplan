@@ -1,0 +1,81 @@
+{
+  "repository": "autotrust/JEV-9B",
+  "revision": "b63f651ce8ed64481d3f5e73ecdb05f740042f01",
+  "files": [
+    {
+      "file": "README.md",
+      "bytes": 53799,
+      "sha256": "322cf4b61346715c35647030af26665412e1ee4d4d6d3b54c497800277031b33"
+    },
+    {
+      "file": "adapter_vllm/adapter_config.json",
+      "bytes": 1335,
+      "sha256": "5ae16c5e11f37c5a67ec0e3b16d871fcc19c069090c1e42a6289f63c8067f6b6"
+    },
+    {
+      "file": "adapter_vllm/adapter_model.safetensors",
+      "bytes": 176641800,
+      "sha256": "a26723d3a1c6b0b59ca5e1bdd4cafaf955531a3f7f7d378390a9e49f0cc476a7"
+    },
+    {
+      "file": "adapter_vllm/decision_head.json",
+      "bytes": 1312,
+      "sha256": "1ae78fc161dea47cb8e3d5b4f5de4ac61c48a33f8031b68052bf699be30ec7fc"
+    },
+    {
+      "file": "calibration.json",
+      "bytes": 1007,
+      "sha256": "9644305e85fac82944ec4353742af9c0fbc6434a277d3f0e54c2abb185aaf9b8"
+    },
+    {
+      "file": "chat_template.jinja",
+      "bytes": 7756,
+      "sha256": "a4aee8afcf2e0711942cf848899be66016f8d14a889ff9ede07bca099c28f715"
+    },
+    {
+      "file": "config.json",
+      "bytes": 2292,
+      "sha256": "616e4e6b1ef1ca8b1832a1a8cb35d16a2281eb876c1bba5eb2cfb4960e496bbc"
+    },
+    {
+      "file": "model-00001-of-00005.safetensors",
+      "bytes": 4234572344,
+      "sha256": "fdce203bd6767c95690c4695699e9e796fa53caeb06c7f6d43a014f7c513b32c"
+    },
+    {
+      "file": "model-00002-of-00005.safetensors",
+      "bytes": 4199125880,
+      "sha256": "64003b88d6e6871f2315e39356188082063ff879994434d5ce8c209b3c736a01"
+    },
+    {
+      "file": "model-00003-of-00005.safetensors",
+      "bytes": 4215396752,
+      "sha256": "ef7cf4227fb3f391bb2bcd5d79a3c10cd90d823dbf964f41a0aa34591377ae82"
+    },
+    {
+      "file": "model-00004-of-00005.safetensors",
+      "bytes": 3224330536,
+      "sha256": "2265f2fcf900572fa0b7c645a9a64f662d4123daeeeda23e917411e907d66272"
+    },
+    {
+      "file": "model-00005-of-00005.safetensors",
+      "bytes": 2034237568,
+      "sha256": "dd63614f1dc80dce2d83be3f3e69af1f8a0ebc8add9b8e0abf3910f563e44344"
+    },
+    {
+      "file": "model.safetensors.index.json",
+      "bytes": 35625,
+      "sha256": "44eea46667963a29cc2ae0ffc5d2e07df077057b284f6d9d31cb149f70aa4d21"
+    },
+    {
+      "file": "tokenizer.json",
+      "bytes": 19989325,
+      "sha256": "06b9509352d2af50381ab2247e083b80d32d5c0aba91c272ca9ff729b6a0e523"
+    },
+    {
+      "file": "tokenizer_config.json",
+      "bytes": 1124,
+      "sha256": "66e427c470fe580fe8c7b5725d857af23d8417e37fae62667ec698306a19987b"
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "utc": "2026-11-17T02:27:34.241725+00:00",
+  "startup_gate_is_not_a_runtime_memory_cap": true,
+  "below_startup_headroom_samples_by_run": [
+    {
+      "run": "shared_983/original/r2",
+      "sampled_min_free_mib": 3924,
+      "startup_headroom_mib": 4096
+    }
+  ],
+  "action": "Preserve and disclose observed resource variation; measurements already complete and owned service stopped"
+}

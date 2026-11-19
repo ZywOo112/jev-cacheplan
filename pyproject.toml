@@ -1,0 +1,36 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "jev-cacheplan"
+version = "0.1.0"
+description = "Prefix-cache-aware structured semantic decision pipelines for JEV-9B"
+readme = "README.md"
+requires-python = ">=3.10,<3.13"
+license = "MIT"
+license-files = ["LICENSE", "licenses/*"]
+dependencies = [
+  "solo-layout @ git+https://github.com/0814wdwd/solo_jev.git@c5bed0511f3c90a83774f1a01e37da6b0b60fa22",
+  "numpy==1.26.4",
+  "numba==0.59.0",
+  "pandas==2.1.4",
+  "requests==2.31.0"
+]
+
+[project.optional-dependencies]
+test = ["pytest==8.3.5"]
+benchmark = ["tokenizers==0.23.3"]
+plot = ["matplotlib==3.8.0"]
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+py-modules = ["project_runtime"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["adapters*", "layout*", "data*", "evaluation*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-p no:cacheprovider"

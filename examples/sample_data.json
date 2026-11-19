@@ -1,0 +1,6 @@
+[
+  {"record_id": "demo-1", "customer_request": "The item arrived broken. Please return my payment.", "company_policy": "Refunds and replacements are available for damaged goods.", "service_context": "Decide only whether the customer asks for a monetary refund."},
+  {"record_id": "demo-2", "customer_request": "Please send a replacement of the same model.", "company_policy": "Refunds and replacements are available for damaged goods.", "service_context": "Decide only whether the customer asks for a monetary refund."},
+  {"record_id": "demo-3", "customer_request": "I would like my money returned to my card.", "company_policy": "Refunds and replacements are available for damaged goods.", "service_context": "Decide only whether the customer asks for a monetary refund."},
+  {"record_id": "demo-4", "customer_request": "Could you tell me the delivery date?", "company_policy": "Refunds and replacements are available for damaged goods.", "service_context": "Decide only whether the customer asks for a monetary refund."}
+]

@@ -1,0 +1,20 @@
+{
+  "model_repository": "autotrust/JEV-9B",
+  "model_revision": "b63f651ce8ed64481d3f5e73ecdb05f740042f01",
+  "model_dir": "models/JEV-9B",
+  "host": "127.0.0.1",
+  "port": 18765,
+  "gpu_uuid": "0",
+  "dtype": "bfloat16",
+  "max_model_len": 16384,
+  "max_num_seqs": 4,
+  "max_num_batched_tokens": 2048,
+  "gpu_memory_utilization": 0.4661,
+  "enable_prefix_caching": true,
+  "enforce_eager": true,
+  "per_request_metrics": true,
+  "selected_budget_mib": 21470,
+  "extra_free_headroom_mib": 5120,
+  "port_note": "Loopback only. GPU 0 is a user-selectable example, not a reserved device.",
+  "memory_note": "Measured M3 budget on one L40; recalculate for your device and workload. Runtime margin is not guaranteed."
+}

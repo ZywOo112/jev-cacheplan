@@ -1,0 +1,2 @@
+# CPU client + offline tests/data generation only. No torch/vLLM/model download.
+-e .[test,benchmark]

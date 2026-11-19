@@ -1,0 +1,12 @@
+{
+  "task": "Historical ContractNLI full test, separate from shared-context benchmark",
+  "original_report_sha256": "42fc15d769bf726aff3d52f5b54d2684f7906d96b9638b1a121805c4ca27f06e",
+  "observations": {
+    "original_mean_seconds": 536.701,
+    "solo_mean_seconds": 1494.747,
+    "reported_time_ratio_original_over_solo": 0.3591
+  },
+  "precision_note": "These three values are rounded historical report summaries, not added to 14-run measured CSV.",
+  "interpretation": "Contract-first grouped input already reused prefixes; the unconstrained SOLO plan regressed. Not a universal speed guarantee.",
+  "redistributed_dataset": false
+}

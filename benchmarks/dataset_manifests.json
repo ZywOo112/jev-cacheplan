@@ -1,0 +1,335 @@
+[
+  {
+    "case": "shared_800",
+    "role": "extension",
+    "repeats": 2,
+    "question": "Does the customer_request ask for a monetary refund?",
+    "seed": 42,
+    "workload": {
+      "family": "shared_fields",
+      "target_reusable_value_token_fraction": 0.8,
+      "constant_field_token_budget": 132,
+      "construction": "Unique ID and customer message first; eight reusable template fields, including two long global constants. Synthetic dummy padding; complete rows sent in every method.",
+      "rows": 128,
+      "columns": 10,
+      "synthetic": true,
+      "dataset_sha256": "e755eb3d58cfecafed7b730699a7168833f0a3ad116dd66c047c78600fdd9e75",
+      "column_ndv": {
+        "record_id": 128,
+        "customer_request": 128,
+        "company_policy": 1,
+        "service_context": 1,
+        "profile_0": 4,
+        "profile_1": 8,
+        "profile_2": 16,
+        "profile_3": 32,
+        "profile_4": 64,
+        "profile_5": 64
+      },
+      "all_column_ndv_equal": false,
+      "field_token_ranges": {
+        "record_id": [
+          23,
+          34
+        ],
+        "customer_request": [
+          230,
+          241
+        ],
+        "company_policy": [
+          132,
+          132
+        ],
+        "service_context": [
+          132,
+          132
+        ],
+        "profile_0": [
+          132,
+          132
+        ],
+        "profile_1": [
+          132,
+          132
+        ],
+        "profile_2": [
+          132,
+          132
+        ],
+        "profile_3": [
+          132,
+          132
+        ],
+        "profile_4": [
+          132,
+          132
+        ],
+        "profile_5": [
+          132,
+          132
+        ]
+      },
+      "reusable_value_token_fraction": 0.8,
+      "reuse_definition": "Fraction of cell-value tokens in columns whose whole-field NDV is less than row count; this is not the prefix-cache hit rate."
+    },
+    "max_prompt_tokens": 1401,
+    "author_max_prompt_tokens": 1401,
+    "byte_identical_author_dataset_sha256": true,
+    "upstream_commit": "c5bed0511f3c90a83774f1a01e37da6b0b60fa22",
+    "model_revision": "b63f651ce8ed64481d3f5e73ecdb05f740042f01",
+    "author_demo_sha256": "d6a5b69d35c5e067e4036aa721d0108164375801c969931f321dd5f248fd8c93",
+    "tokenizer_sha256": "06b9509352d2af50381ab2247e083b80d32d5c0aba91c272ca9ff729b6a0e523",
+    "complete_records": true,
+    "gold_outside_prompt": true,
+    "identifier_is_author_original_model_field": true,
+    "files": [
+      {
+        "file": "explain_preflight.json",
+        "bytes": 2110,
+        "sha256": "5a78429ed96b50897bb5b161e8685a53c2ce7ff99788aa9e69de95a4b2a60e53"
+      },
+      {
+        "file": "plans_preflight.json",
+        "bytes": 3399,
+        "sha256": "cd3e3d6c7de8ac78ea23c600938a748b84017afec4873fd62ce471d666bf4596"
+      },
+      {
+        "file": "prompt_lengths.json",
+        "bytes": 47399,
+        "sha256": "102c21c7a336b5503e1de9f4bbe13072401231d28d5f2feeb76d42d7bf2d81e7"
+      },
+      {
+        "file": "records.jsonl",
+        "bytes": 1040706,
+        "sha256": "67a3ab50800c30c06ae291adf9883424718b95e32dd0aba10dbc1afb7ac48e84"
+      },
+      {
+        "file": "truth.json",
+        "bytes": 7234,
+        "sha256": "daa66e48792b0cf6b549c431c5b7fcbd7ba0d4c34464e1b9d205c1229ab042ac"
+      }
+    ]
+  },
+  {
+    "case": "shared_970",
+    "role": "core",
+    "repeats": 3,
+    "question": "Does the customer_request ask for a monetary refund?",
+    "seed": 42,
+    "workload": {
+      "family": "shared_fields",
+      "target_reusable_value_token_fraction": 0.97,
+      "constant_field_token_budget": 3872,
+      "construction": "Unique ID and customer message first; eight reusable template fields, including two long global constants. Synthetic dummy padding; complete rows sent in every method.",
+      "rows": 128,
+      "columns": 10,
+      "synthetic": true,
+      "dataset_sha256": "e5795b06d87acfaf43b1c2499c35e432223dc463004d7a261a059ddbf9a9bc06",
+      "column_ndv": {
+        "record_id": 128,
+        "customer_request": 128,
+        "company_policy": 1,
+        "service_context": 1,
+        "profile_0": 4,
+        "profile_1": 8,
+        "profile_2": 16,
+        "profile_3": 32,
+        "profile_4": 64,
+        "profile_5": 64
+      },
+      "all_column_ndv_equal": false,
+      "field_token_ranges": {
+        "record_id": [
+          23,
+          34
+        ],
+        "customer_request": [
+          230,
+          241
+        ],
+        "company_policy": [
+          3872,
+          3872
+        ],
+        "service_context": [
+          3872,
+          3872
+        ],
+        "profile_0": [
+          132,
+          132
+        ],
+        "profile_1": [
+          132,
+          132
+        ],
+        "profile_2": [
+          132,
+          132
+        ],
+        "profile_3": [
+          132,
+          132
+        ],
+        "profile_4": [
+          132,
+          132
+        ],
+        "profile_5": [
+          132,
+          132
+        ]
+      },
+      "reusable_value_token_fraction": 0.97,
+      "reuse_definition": "Fraction of cell-value tokens in columns whose whole-field NDV is less than row count; this is not the prefix-cache hit rate."
+    },
+    "max_prompt_tokens": 8881,
+    "author_max_prompt_tokens": 8881,
+    "byte_identical_author_dataset_sha256": true,
+    "upstream_commit": "c5bed0511f3c90a83774f1a01e37da6b0b60fa22",
+    "model_revision": "b63f651ce8ed64481d3f5e73ecdb05f740042f01",
+    "author_demo_sha256": "d6a5b69d35c5e067e4036aa721d0108164375801c969931f321dd5f248fd8c93",
+    "tokenizer_sha256": "06b9509352d2af50381ab2247e083b80d32d5c0aba91c272ca9ff729b6a0e523",
+    "complete_records": true,
+    "gold_outside_prompt": true,
+    "identifier_is_author_original_model_field": true,
+    "files": [
+      {
+        "file": "explain_preflight.json",
+        "bytes": 2113,
+        "sha256": "b52904fecb8056be5a34e48ae8adfdae2c1fbf80660a68eac68171947e96415f"
+      },
+      {
+        "file": "plans_preflight.json",
+        "bytes": 3399,
+        "sha256": "cd3e3d6c7de8ac78ea23c600938a748b84017afec4873fd62ce471d666bf4596"
+      },
+      {
+        "file": "prompt_lengths.json",
+        "bytes": 47399,
+        "sha256": "613bec0d7c77ea65b3cdeba963098f8435b9d3406b7bbe1ece8668930f882f64"
+      },
+      {
+        "file": "records.jsonl",
+        "bytes": 6690370,
+        "sha256": "33097f8129da07d2186a16398ee4b4f1f9e06b5e694bc071f7dda9f41530e43e"
+      },
+      {
+        "file": "truth.json",
+        "bytes": 7234,
+        "sha256": "daa66e48792b0cf6b549c431c5b7fcbd7ba0d4c34464e1b9d205c1229ab042ac"
+      }
+    ]
+  },
+  {
+    "case": "shared_983",
+    "role": "extension",
+    "repeats": 2,
+    "question": "Does the customer_request ask for a monetary refund?",
+    "seed": 42,
+    "workload": {
+      "family": "shared_fields",
+      "target_reusable_value_token_fraction": 0.983,
+      "constant_field_token_budget": 7237,
+      "construction": "Unique ID and customer message first; eight reusable template fields, including two long global constants. Synthetic dummy padding; complete rows sent in every method.",
+      "rows": 128,
+      "columns": 10,
+      "synthetic": true,
+      "dataset_sha256": "f25bc7b22765b95bafb27ae3704ce40e31b8bc4e5cd6ee25d03c511bb43c445e",
+      "column_ndv": {
+        "record_id": 128,
+        "customer_request": 128,
+        "company_policy": 1,
+        "service_context": 1,
+        "profile_0": 4,
+        "profile_1": 8,
+        "profile_2": 16,
+        "profile_3": 32,
+        "profile_4": 64,
+        "profile_5": 64
+      },
+      "all_column_ndv_equal": false,
+      "field_token_ranges": {
+        "record_id": [
+          23,
+          34
+        ],
+        "customer_request": [
+          230,
+          241
+        ],
+        "company_policy": [
+          7237,
+          7237
+        ],
+        "service_context": [
+          7237,
+          7237
+        ],
+        "profile_0": [
+          132,
+          132
+        ],
+        "profile_1": [
+          132,
+          132
+        ],
+        "profile_2": [
+          132,
+          132
+        ],
+        "profile_3": [
+          132,
+          132
+        ],
+        "profile_4": [
+          132,
+          132
+        ],
+        "profile_5": [
+          132,
+          132
+        ]
+      },
+      "reusable_value_token_fraction": 0.9830006439150032,
+      "reuse_definition": "Fraction of cell-value tokens in columns whose whole-field NDV is less than row count; this is not the prefix-cache hit rate."
+    },
+    "max_prompt_tokens": 15611,
+    "author_max_prompt_tokens": 15611,
+    "byte_identical_author_dataset_sha256": true,
+    "upstream_commit": "c5bed0511f3c90a83774f1a01e37da6b0b60fa22",
+    "model_revision": "b63f651ce8ed64481d3f5e73ecdb05f740042f01",
+    "author_demo_sha256": "d6a5b69d35c5e067e4036aa721d0108164375801c969931f321dd5f248fd8c93",
+    "tokenizer_sha256": "06b9509352d2af50381ab2247e083b80d32d5c0aba91c272ca9ff729b6a0e523",
+    "complete_records": true,
+    "gold_outside_prompt": true,
+    "identifier_is_author_original_model_field": true,
+    "files": [
+      {
+        "file": "explain_preflight.json",
+        "bytes": 2114,
+        "sha256": "83317215beaacca8bca3b36f3428f6394bf9d55531ad7b7ff99d3d1729b1b023"
+      },
+      {
+        "file": "plans_preflight.json",
+        "bytes": 3399,
+        "sha256": "cd3e3d6c7de8ac78ea23c600938a748b84017afec4873fd62ce471d666bf4596"
+      },
+      {
+        "file": "prompt_lengths.json",
+        "bytes": 47655,
+        "sha256": "5f183af1a991d5912fb6a2163ffbdfd2a3926e2346a93e20a03cdc388112d2c4"
+      },
+      {
+        "file": "records.jsonl",
+        "bytes": 11793218,
+        "sha256": "2a4092d22e1c4c719bc2ebe792a5d7857fbc483fd91414a57a6a590b56f87504"
+      },
+      {
+        "file": "truth.json",
+        "bytes": 7234,
+        "sha256": "daa66e48792b0cf6b549c431c5b7fcbd7ba0d4c34464e1b9d205c1229ab042ac"
+      }
+    ]
+  }
+]

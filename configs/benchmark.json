@@ -1,0 +1,18 @@
+{
+  "rows": 128,
+  "seed": 42,
+  "request_seed": 0,
+  "concurrency": 4,
+  "kind": "noul",
+  "question": "Does the customer_request ask for a monetary refund?",
+  "case_order": ["shared_970", "shared_800", "shared_983"],
+  "cases": {
+    "shared_800": {"ratio": 0.8, "repeats": 2, "role": "extension"},
+    "shared_970": {"ratio": 0.97, "repeats": 3, "role": "core"},
+    "shared_983": {"ratio": 0.983, "repeats": 2, "role": "extension"}
+  },
+  "orders": [["original", "solo"], ["solo", "original"], ["original", "solo"]],
+  "no_truncation": true,
+  "fresh_cache_salt_per_scan": true,
+  "separate_warmup_salt": true
+}
