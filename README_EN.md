@@ -4,7 +4,7 @@
 
 [中文说明与完整命令](README.md)
 
-JEV-CachePlan integrates the **existing SOLO layout optimizer** with **JEV-9B and vLLM** for batched structured semantic decisions. It provides audited HTTP requests, calibrated probabilities, row/column permutation validation, bounded concurrency, original-ID restoration and actual prefix-cache/performance measurements. The contribution is systems integration and reproducible engineering, **not a new layout algorithm**.
+JEV-CachePlan integrates the **existing layout optimizer** with **JEV-9B and vLLM** for batched structured semantic decisions. It provides audited HTTP requests, calibrated probabilities, row/column permutation validation, bounded concurrency, original-ID restoration and actual prefix-cache/performance measurements.
 
 ![System architecture](assets/architecture.png)
 
@@ -18,7 +18,6 @@ python scripts/decide.py --compare --plan-only
 PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 python -m pytest -q
 ```
 
-This does not install GPU dependencies or download model weights. CPU tests use explicit fake backends and forbid real HTTP. SOLO is a direct Git dependency pinned to `c5bed0511f3c90a83774f1a01e37da6b0b60fa22`.
 
 ## GPU decisions
 
